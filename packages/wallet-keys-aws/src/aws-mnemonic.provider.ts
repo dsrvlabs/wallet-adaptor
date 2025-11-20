@@ -14,6 +14,7 @@ import {
 export class AwsMnemonicProvider implements MnemonicProvider {
   private readonly secretsClient: SecretsManagerClient;
   private readonly kmsClient: KMSClient;
+  private readonly mnemonicCache = new Map<string, Promise<string>>();
 
   constructor(region?: string) {
     const awsConfig = region ? { region } : {};
@@ -22,7 +23,21 @@ export class AwsMnemonicProvider implements MnemonicProvider {
   }
 
   async getMnemonic(ctx: MnemonicContext): Promise<string> {
-    const secretName = `${ctx.organizationId}_${ctx.chainId}`;
+    const cacheKey = `${ctx.organizationId}_${ctx.chainId}`;
+    
+    // 캐시에 이미 있으면 기존 Promise 반환 (싱글톤 패턴)
+    if (this.mnemonicCache.has(cacheKey)) {
+      return this.mnemonicCache.get(cacheKey)!;
+    }
+
+    // 캐시에 없으면 새로 가져와서 캐시에 저장
+    const mnemonicPromise = this.fetchAndDecryptMnemonic(cacheKey);
+    this.mnemonicCache.set(cacheKey, mnemonicPromise);
+    
+    return mnemonicPromise;
+  }
+
+  private async fetchAndDecryptMnemonic(secretName: string): Promise<string> {
     const encryptedMnemonic = await this.getEncryptedMnemonicFromSecretsManager(secretName);
     return await this.decryptWithKMS(encryptedMnemonic);
   }
