@@ -9,7 +9,7 @@ import {
 import {
   MnemonicProvider,
   MnemonicContext,
-} from "@dsrv/wallet-core";
+} from "@dsrvlabs/wallet-core";
 
 export class AwsMnemonicProvider implements MnemonicProvider {
   private readonly secretsClient: SecretsManagerClient;

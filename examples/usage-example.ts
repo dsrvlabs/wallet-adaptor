@@ -2,18 +2,18 @@
  * Example usage of the wallet SDK from an external MQ consumer project.
  * 
  * This demonstrates how to wire together the packages:
- * - @dsrv/wallet-keys-aws: AWS Secrets Manager mnemonic provider
- * - @dsrv/wallet-eth: Ethereum wallet adapter
- * - @dsrv/wallet-core: Core types and interfaces
+ * - @dsrvlabs/wallet-keys-aws: AWS Secrets Manager mnemonic provider
+ * - @dsrvlabs/wallet-eth: Ethereum wallet adapter
+ * - @dsrvlabs/wallet-core: Core types and interfaces
  */
 
-import { AwsMnemonicProvider } from '@dsrv/wallet-keys-aws';
+import { AwsMnemonicProvider } from '@dsrvlabs/wallet-keys-aws';
 import {
   GenerateAddressParams,
   UnsignedTx,
   CoinType,
-} from '@dsrv/wallet-core';
-import { EthWalletAdapter } from '@dsrv/wallet-eth';
+} from '@dsrvlabs/wallet-core';
+import { EthWalletAdapter } from '@dsrvlabs/wallet-eth';
 import { TransactionRequest } from 'ethers';
 
 // Initialize the mnemonic provider (AWS Secrets Manager)

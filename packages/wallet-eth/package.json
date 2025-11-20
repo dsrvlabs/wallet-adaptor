@@ -1,15 +1,23 @@
 {
-  "name": "@dsrv/wallet-eth",
+  "name": "@dsrvlabs/wallet-eth",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsrvlabs/wallet-adaptor.git",
+    "directory": "packages/wallet-eth"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "ethers": "^6.13.0",
-    "@dsrv/wallet-core": "workspace:*",
-    "@dsrv/wallet-keys-aws": "workspace:*"
+    "@dsrvlabs/wallet-core": "workspace:*",
+    "@dsrvlabs/wallet-keys-aws": "workspace:*"
   }
 }

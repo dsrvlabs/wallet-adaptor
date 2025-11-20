@@ -6,7 +6,7 @@ import {
   SignedTx,
   MnemonicProvider,
   WalletAdapter,
-} from "@dsrv/wallet-core";
+} from "@dsrvlabs/wallet-core";
 
 export class EthWalletAdapter implements WalletAdapter {
   readonly supportedCoinTypes: CoinType[] = [60];

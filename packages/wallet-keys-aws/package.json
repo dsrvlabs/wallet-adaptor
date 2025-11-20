@@ -1,14 +1,22 @@
 {
-  "name": "@dsrv/wallet-keys-aws",
+  "name": "@dsrvlabs/wallet-keys-aws",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsrvlabs/wallet-adaptor.git",
+    "directory": "packages/wallet-keys-aws"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@dsrv/wallet-core": "workspace:*",
+    "@dsrvlabs/wallet-core": "workspace:*",
     "@aws-sdk/client-secrets-manager": "^3.600.0",
     "@aws-sdk/client-kms": "^3.600.0"
   },

@@ -1,5 +1,5 @@
 {
-  "name": "@dsrv/wallet-core",
+  "name": "@dsrvlabs/wallet-core",
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.js",
@@ -9,6 +9,14 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsrvlabs/wallet-adaptor.git",
+    "directory": "packages/wallet-core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json"
