@@ -1,6 +1,6 @@
 {
   "name": "@dsrvlabs/wallet-keys-aws",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@dsrvlabs/wallet-core": "workspace:*",
+    "@dsrvlabs/wallet-core": "^0.1.1",
     "@aws-sdk/client-secrets-manager": "^3.600.0",
     "@aws-sdk/client-kms": "^3.600.0"
   },
