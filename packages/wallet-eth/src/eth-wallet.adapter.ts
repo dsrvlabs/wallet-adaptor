@@ -7,6 +7,7 @@ import {
   MnemonicProvider,
   WalletAdapter,
 } from "@dsrvlabs/wallet-core";
+import { HDNodeWallet } from "ethers";
 
 export class EthWalletAdapter implements WalletAdapter {
   readonly supportedCoinTypes: CoinType[] = [60];
@@ -16,9 +17,34 @@ export class EthWalletAdapter implements WalletAdapter {
   ) {}
 
   async generateAddress(params: GenerateAddressParams): Promise<GeneratedAddress> {
-    // TODO: use ethers HDNodeWallet.fromPhrase(mnemonic)
-    // and derive path: m/44'/60'/{accountId}'/{change}/{index}
-    throw new Error("EthWalletAdapter.generateAddress is not implemented yet.");
+    const {
+      organizationId,
+      chainId,
+      accountId,
+      change,
+      index,
+    } = params;
+
+    // mnemonicProvider를 통해 니모닉 가져오기
+    const mnemonic = await this.mnemonicProvider.getMnemonic({
+      organizationId,
+      chainId,
+    });
+
+    // ethers HDNodeWallet.fromPhrase로 루트 지갑 생성
+    const root = HDNodeWallet.fromPhrase(mnemonic);
+
+    const path = `m/44'/60'/${accountId}'/${change}/${index}`;
+    const node = root.derivePath(path);
+
+    // 주소 가져오기
+    const address = await node.getAddress();
+
+    return {
+      address,
+      publicKey: node.publicKey,
+      path,
+    };
   }
 
   async signTransaction(tx: UnsignedTx): Promise<SignedTx> {
