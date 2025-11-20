@@ -1,4 +1,4 @@
-# Wallet Adaptor SDK
+# Wallet SDK
 
 Multi-package TypeScript wallet SDK for managing cryptocurrency wallets with support for multiple blockchains. Currently supports Ethereum (ETH), with an extensible architecture for adding additional chains (TRX, SOL, etc.).
 
@@ -267,7 +267,7 @@ pnpm -r build
 ## Project Structure
 
 ```
-wallet-adaptor/
+wallet-sdk/
 ├── packages/
 │   ├── wallet-core/          # Core types and interfaces
 │   │   ├── src/
@@ -366,7 +366,7 @@ await processWalletJob({
 });
 ```
 
-# WALLET ADAPTOR Monorepo & GitHub Packages 배포 가이드
+# Wallet SDK Monorepo & GitHub Packages 배포 가이드
 
 이 레포는 지갑 SDK를 위한 monorepo입니다.
 
@@ -385,7 +385,7 @@ SDK 패키지는 **GitHub Packages (npm 레지스트리)** 에 배포하고,
 
 - GitHub Org: `dsrvlabs`
 - 패키지 스코프: `@dsrvlabs`
-- 레포: `https://github.com/dsrvlabs/wallet-adaptor`
+- 레포: `https://github.com/dsrvlabs/wallet-sdk`
 - 배포 대상 패키지 (예시)
   - `packages/wallet-core`
   - `packages/wallet-keys-aws`
@@ -422,4 +422,106 @@ npm이 `@dsrvlabs` 스코프 패키지를 GitHub Packages에서 가져오도록 
 
    ```bash
    nano ~/.npmrc
+   ```
+
+2. 다음 내용을 추가:
+
+   ```
+   @dsrvlabs:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+   ```
+
+   - `YOUR_GITHUB_TOKEN`을 위에서 발급한 Personal Access Token으로 교체
+   - 이 파일은 **절대 Git에 커밋하지 않음** (`.gitignore`에 포함되어 있음)
+
+---
+
+## 3. 패키지 빌드
+
+배포하기 전에 모든 패키지를 빌드해야 합니다.
+
+```bash
+# 루트 디렉토리에서 모든 패키지 빌드
+pnpm -r build
+
+# 또는 개별 패키지 빌드
+cd packages/wallet-core && pnpm build
+cd ../wallet-keys-aws && pnpm build
+cd ../wallet-eth && pnpm build
+```
+
+---
+
+## 4. npm publish
+
+각 패키지를 GitHub Packages에 배포합니다. **의존성 순서에 따라** 배포해야 합니다.
+
+### 4-1. wallet-core 배포
+
+```bash
+cd packages/wallet-core
+npm publish
+```
+
+### 4-2. wallet-keys-aws 배포
+
+```bash
+cd packages/wallet-keys-aws
+npm publish
+```
+
+### 4-3. wallet-eth 배포
+
+```bash
+cd packages/wallet-eth
+npm publish
+```
+
+### 주의사항
+
+- **의존성 순서**: `wallet-core` → `wallet-keys-aws` → `wallet-eth` 순서로 배포
+- **버전 관리**: `package.json`의 `version` 필드를 업데이트한 후 배포
+- **태그 사용**: 버전을 낮추는 경우 `npm publish --tag <tag-name>` 사용
+- **인증 오류**: `ENEEDAUTH` 오류가 발생하면 `~/.npmrc`의 토큰이 올바른지 확인
+
+### 버전 업데이트 예시
+
+```bash
+# package.json에서 version 수정 후
+cd packages/wallet-core
+npm version patch  # 0.0.1 -> 0.0.2
+npm publish
+```
+
+---
+
+## 5. 패키지 설치 (Consumer 프로젝트에서)
+
+다른 프로젝트에서 이 패키지들을 사용하려면:
+
+1. 프로젝트 루트에 `.npmrc` 파일 생성:
+
+   ```
+   @dsrvlabs:registry=https://npm.pkg.github.com
+   //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+   ```
+
+2. `package.json`에 의존성 추가:
+
+   ```json
+   {
+     "dependencies": {
+       "@dsrvlabs/wallet-core": "^0.0.1",
+       "@dsrvlabs/wallet-keys-aws": "^0.0.1",
+       "@dsrvlabs/wallet-eth": "^0.0.1"
+     }
+   }
+   ```
+
+3. 설치:
+
+   ```bash
+   npm install
+   # 또는
+   pnpm install
    ```

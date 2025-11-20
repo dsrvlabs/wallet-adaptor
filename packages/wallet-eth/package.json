@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dsrvlabs/wallet-adaptor.git",
+    "url": "https://github.com/dsrvlabs/wallet-sdk.git",
     "directory": "packages/wallet-eth"
   },
   "publishConfig": {

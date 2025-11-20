@@ -1,8 +1,6 @@
 import {
-  CoinType,
   GenerateAddressParams,
   GeneratedAddress,
-  UnsignedTx,
   SignedTx,
   MnemonicProvider,
   WalletAdapter,
@@ -10,8 +8,6 @@ import {
 import { HDNodeWallet } from "ethers";
 
 export class EthWalletAdapter implements WalletAdapter {
-  readonly supportedCoinTypes: CoinType[] = [60];
-
   constructor(
     private readonly mnemonicProvider: MnemonicProvider,
   ) {}
@@ -23,6 +19,7 @@ export class EthWalletAdapter implements WalletAdapter {
       accountId,
       change,
       index,
+      coinType,
     } = params;
 
     // mnemonicProvider를 통해 니모닉 가져오기
@@ -34,7 +31,7 @@ export class EthWalletAdapter implements WalletAdapter {
     // ethers HDNodeWallet.fromPhrase로 루트 지갑 생성
     const root = HDNodeWallet.fromPhrase(mnemonic);
 
-    const path = `m/44'/60'/${accountId}'/${change}/${index}`;
+    const path = `m/44'/${coinType}'/${accountId}'/${change}/${index}`;
     const node = root.derivePath(path);
 
     // 주소 가져오기
@@ -47,7 +44,7 @@ export class EthWalletAdapter implements WalletAdapter {
     };
   }
 
-  async signTransaction(tx: UnsignedTx): Promise<SignedTx> {
+  async signTransaction(tx: any): Promise<SignedTx> {
     // TODO: use mnemonicProvider and ethers Wallet to sign tx.rawTx
     throw new Error("EthWalletAdapter.signTransaction is not implemented yet.");
   }
