@@ -9,7 +9,12 @@
   },
   "dependencies": {
     "@dsrv/wallet-core": "workspace:*",
-    "@aws-sdk/client-secrets-manager": "^3.600.0"
+    "@aws-sdk/client-secrets-manager": "^3.600.0",
+    "@aws-sdk/client-kms": "^3.600.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.6.0"
   }
 }
 
