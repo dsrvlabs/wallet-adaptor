@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "ethers": "^6.13.0",
-    "@dsrvlabs/wallet-core": "^0.0.1",
-    "@dsrvlabs/wallet-keys-aws": "^0.0.1"
+    "@dsrvlabs/wallet-core": "^0.0.1"
   }
 }
