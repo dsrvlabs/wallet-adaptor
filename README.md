@@ -44,6 +44,36 @@ Ethereum wallet adapter implementing `WalletAdapter` using ethers v6.
 
 ## Installation
 
+### Install from GitHub (Recommended)
+
+You can install the package directly from GitHub without needing `.npmrc` or GitHub Packages authentication:
+
+```bash
+# Using pnpm
+pnpm add github:dsrvlabs/wallet-sdk#packages/wallet-eth
+
+# Using npm
+npm install github:dsrvlabs/wallet-sdk#packages/wallet-eth
+
+# Using yarn
+yarn add github:dsrvlabs/wallet-sdk#packages/wallet-eth
+```
+
+Or add to your `package.json`:
+
+```json
+{
+  "dependencies": {
+    "@dsrvlabs/wallet-eth": "github:dsrvlabs/wallet-sdk#packages/wallet-eth"
+  }
+}
+```
+
+**Note:** You can specify a specific branch, tag, or commit:
+- `github:dsrvlabs/wallet-sdk#main:packages/wallet-eth` (specific branch)
+- `github:dsrvlabs/wallet-sdk#v0.0.1:packages/wallet-eth` (specific tag)
+- `github:dsrvlabs/wallet-sdk#abc1234:packages/wallet-eth` (specific commit)
+
 ### Using npm/pnpm workspace
 
 If using this as a monorepo workspace:
@@ -431,7 +461,43 @@ npm publish
 
 ## 5. 패키지 설치 (Consumer 프로젝트에서)
 
-다른 프로젝트에서 이 패키지들을 사용하려면:
+다른 프로젝트에서 이 패키지들을 사용하는 방법:
+
+### 방법 1: GitHub에서 직접 설치 (추천, .npmrc 불필요)
+
+가장 간단한 방법입니다. `.npmrc` 파일이나 인증이 필요 없습니다:
+
+```bash
+# pnpm 사용
+pnpm add github:dsrvlabs/wallet-sdk#packages/wallet-eth
+
+# npm 사용
+npm install github:dsrvlabs/wallet-sdk#packages/wallet-eth
+
+# yarn 사용
+yarn add github:dsrvlabs/wallet-sdk#packages/wallet-eth
+```
+
+또는 `package.json`에 직접 추가:
+
+```json
+{
+  "dependencies": {
+    "@dsrvlabs/wallet-eth": "github:dsrvlabs/wallet-sdk#packages/wallet-eth"
+  }
+}
+```
+
+**특정 브랜치/태그/커밋 지정:**
+- `github:dsrvlabs/wallet-sdk#main:packages/wallet-eth` (특정 브랜치)
+- `github:dsrvlabs/wallet-sdk#v0.0.1:packages/wallet-eth` (특정 태그)
+- `github:dsrvlabs/wallet-sdk#abc1234:packages/wallet-eth` (특정 커밋)
+
+**Note:** `@dsrvlabs/wallet-types`는 내부 패키지이므로 별도로 설치할 필요가 없습니다. `@dsrvlabs/wallet-eth`가 필요한 타입을 모두 export합니다.
+
+### 방법 2: GitHub Packages 사용 (.npmrc 필요)
+
+GitHub Packages를 통해 설치하려면:
 
 1. 프로젝트 루트에 `.npmrc` 파일 생성:
 
@@ -449,8 +515,6 @@ npm publish
      }
    }
    ```
-
-   **Note:** `@dsrvlabs/wallet-types`는 내부 패키지이므로 별도로 설치할 필요가 없습니다. `@dsrvlabs/wallet-eth`가 필요한 타입을 모두 export합니다.
 
 3. 설치:
 

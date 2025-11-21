@@ -6,6 +6,9 @@ pnpm-lock.yaml
 # Build outputs
 dist/
 **/dist/
+# Allow dist files for packages (needed for GitHub installation)
+!packages/wallet-eth/dist/
+!packages/wallet-types/dist/
 
 # IDE
 .vscode/
