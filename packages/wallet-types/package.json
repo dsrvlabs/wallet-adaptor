@@ -1,7 +1,8 @@
 {
-  "name": "@dsrvlabs/wallet-core",
+  "name": "@dsrvlabs/wallet-types",
   "version": "0.0.1",
   "type": "module",
+  "private": true,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -13,10 +14,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dsrvlabs/wallet-sdk.git",
-    "directory": "packages/wallet-core"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "directory": "packages/wallet-types"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json"

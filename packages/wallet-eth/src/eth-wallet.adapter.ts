@@ -2,7 +2,7 @@ import {
   GenerateAddressParams,
   GeneratedAddress,
   WalletAdapter,
-} from "@dsrvlabs/wallet-core";
+} from "@dsrvlabs/wallet-types";
 import { HDNodeWallet } from "ethers";
 
 export class EthWalletAdapter implements WalletAdapter {
@@ -17,7 +17,9 @@ export class EthWalletAdapter implements WalletAdapter {
     // ethers HDNodeWallet.fromPhrase로 루트 지갑 생성
     const root = HDNodeWallet.fromPhrase(mnemonic);
 
-    const node = root.derivePath(hdpath);
+    // derivePath는 상대 경로를 사용해야 하므로 "m/" 제거
+    const relativePath = hdpath.startsWith("m/") ? hdpath.slice(2) : hdpath;
+    const node = root.derivePath(relativePath);
 
     // 주소 가져오기
     const address = await node.getAddress();

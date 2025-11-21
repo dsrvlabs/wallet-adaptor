@@ -3,9 +3,12 @@
   "version": "0.0.1",
   "type": "module",
   "private": true,
+  "scripts": {
+    "test": "node --test wallet.test.ts"
+  },
   "dependencies": {
-    "@dsrvlabs/wallet-core": "^0.0.1",
-    "@dsrvlabs/wallet-eth": "^0.0.1",
+    "@dsrvlabs/wallet-types": "workspace:*",
+    "@dsrvlabs/wallet-eth": "workspace:*",
     "ethers": "^6.13.0"
   },
   "devDependencies": {
